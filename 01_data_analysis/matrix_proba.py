@@ -5,7 +5,8 @@ supermarket['last_aisle'] = supermarket.groupby('customer_no').location.shift(-1
 
 
 
-prob = pd.crosstab(supermarket['last_aisle'], supermarket['location'], normalize=0)
+# prob = pd.crosstab(supermarket['last_aisle'], supermarket['location'], normalize=0)
+prob = pd.crosstab(supermarket['location'], supermarket['last_aisle'], normalize=0)
 # 0, 1, index, columns, all
 
 #print(supermarket.head())
