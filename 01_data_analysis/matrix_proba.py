@@ -15,3 +15,4 @@ print(prob)
 print(prob.sum(axis=1))
 
 supermarket.to_csv('../data/sm-last_isle.csv')
+
