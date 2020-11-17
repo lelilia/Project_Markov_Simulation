@@ -16,20 +16,20 @@ class Supermarket:
     self.customers = []
     self.minutes = 0
     self.last_id = 0
-    self.data = get_the_original_data()
-    self.transition_matrix = get_transition_matrix(self.data)
+    self.transition_matrix = get_transition_matrix(get_the_original_data())
     self.customer_id = 0
+
   def __repr__(self):
     pass
 
   def get_time(self):
     '''
-    current time in HH:MM format,
+    print current time in HH:MM format
     '''
     hour = self.minutes // 60 + 7
     minutes = self.minutes % 60
-    return f'{hour}:{minutes}'
-    # TODO add zeros to make it two
+    print(f'{str(hour).zfill(2)}:{str(minutes).zfill(2)}')
+
 
   def print_customers(self):
     '''
@@ -66,19 +66,3 @@ class Supermarket:
       if not customer.is_active():
         self.customers.remove(customer)
 
-
-test = Supermarket()
-print(test.get_time())
-test.print_customers()
-test.add_new_customers()
-test.print_customers()
-test.next_minute()
-test.print_customers()
-print(test.get_time())
-supermarket = get_the_original_data()
-print(get_transition_matrix(supermarket))
-test.add_new_customers()
-test.add_new_customers()
-test.print_customers()
-test.next_minute()
-test.print_customers()

@@ -28,5 +28,7 @@ class Customer:
     Propagates the customer to the next state using a weighted random choice from the transition probabilities conditional on the current state.
     Returns nothing.
     '''
-    self.state = np.random.choice(['spices', 'drinks', 'fruit'])
-    #TODO
+    self.history.append(self.state)
+    self.state = np.random.choice(['spices', 'drinks', 'fruit', 'checkout'], p = [0.25, 0.25, 0.2, 0.3])
+
+    #TODO -> add real MCMC here
