@@ -82,3 +82,5 @@ def get_concatinated_data():
 if __name__ == '__main__':
   supermarket = get_the_original_data()
   print(get_transition_matrix(supermarket))
+
+  print(supermarket[supermarket.customer_no == 1])

@@ -4,7 +4,7 @@ import pandas as pd
 
 # local import
 from customer import Customer
-
+from utils.functions import get_transition_matrix, get_the_original_data
 
 class Supermarket:
   '''
@@ -16,7 +16,9 @@ class Supermarket:
     self.customers = []
     self.minutes = 0
     self.last_id = 0
-
+    self.data = get_the_original_data()
+    self.transition_matrix = get_transition_matrix(self.data)
+    self.customer_id = 0
   def __repr__(self):
     pass
 
@@ -33,7 +35,7 @@ class Supermarket:
     '''
     print all customers with the current time and id in CSV format.
     '''
-    print(f'There are {len(self.customers)} in the supermarket at the moment.\n')
+    print(f'There are {len(self.customers)} customer(s) in the supermarket at the moment.\n')
 
     for customer in self.customers:
         print(customer)
@@ -50,7 +52,10 @@ class Supermarket:
     '''
     randomly creates new customers.
     '''
-    customer = Customer(7, 'dairy', [0, 1])
+    id = self.customer_id
+    self.customer_id += 1
+    location = np.random.choice(['dairy', 'drinks', 'fruit', 'spices'])
+    customer = Customer(id, location, self.transition_matrix)
     self.customers.append(customer)
 
   def remove_exitsting_customers(self):
@@ -70,3 +75,10 @@ test.print_customers()
 test.next_minute()
 test.print_customers()
 print(test.get_time())
+supermarket = get_the_original_data()
+print(get_transition_matrix(supermarket))
+test.add_new_customers()
+test.add_new_customers()
+test.print_customers()
+test.next_minute()
+test.print_customers()
