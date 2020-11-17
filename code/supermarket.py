@@ -4,7 +4,7 @@ import pandas as pd
 
 # local import
 from customer import Customer
-from utils.functions import get_transition_matrix, get_the_original_data
+from utils.functions import get_transition_matrix, get_supermarket_data
 
 class Supermarket:
   '''
@@ -16,8 +16,8 @@ class Supermarket:
     self.customers = []
     self.minutes = 0
     self.last_id = 0
-    self.transition_matrix = get_transition_matrix(get_the_original_data())
-    self.customer_id = 0
+    self.transition_matrix = get_transition_matrix(get_supermarket_data())
+
 
   def __repr__(self):
     pass
@@ -52,8 +52,8 @@ class Supermarket:
     '''
     randomly creates new customers.
     '''
-    id = self.customer_id
-    self.customer_id += 1
+    id = self.last_id
+    self.last_id += 1
     location = np.random.choice(['dairy', 'drinks', 'fruit', 'spices'])
     customer = Customer(id, location, self.transition_matrix)
     self.customers.append(customer)

@@ -1,5 +1,5 @@
 from supermarket import Supermarket
-
+from utils.functions import *
 
 supermarket = Supermarket()
 
@@ -13,4 +13,5 @@ while len(supermarket.customers) > 0:
   supermarket.print_customers()
   supermarket.get_time()
   supermarket.remove_exitsting_customers()
+
 

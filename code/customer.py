@@ -29,6 +29,6 @@ class Customer:
     Returns nothing.
     '''
     self.history.append(self.state)
-    self.state = np.random.choice(['spices', 'drinks', 'fruit', 'checkout'], p = [0.25, 0.25, 0.2, 0.3])
+    self.state = np.random.choice(['checkout', 'dairy', 'drinks', 'fruit', 'spices'], p = self.transition_mat.loc[self.state])
 
     #TODO -> add real MCMC here

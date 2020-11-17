@@ -70,17 +70,23 @@ def save_compounded_dataframe():
   Saves the original data in a concatinated dataframe once
   '''
   supermarket = get_the_original_data()
+  supermarket = backfill_data(supermarket)
   supermarket.to_csv('../data/supermarket.csv')
 
-def get_concatinated_data():
+def get_supermarket_data():
   '''
   get the supermarket dataframe from csv
   '''
   supermarket = pd.read_csv('../data/supermarket.csv', index_col = 'timestamp', parse_dates = True)
   return supermarket
 
-if __name__ == '__main__':
-  supermarket = get_the_original_data()
-  print(get_transition_matrix(supermarket))
+def backfill_data(df):
+  '''
+  fills in the dataFrame with positions for the customers for each minute they are in the store
+  '''
+  df = df.groupby('customer_no').resample('60S').bfill()
+  df.drop('customer_no', axis = 1, inplace = True)
+  df = df.reset_index().set_index('timestamp')
+  df = df.sort_index()
+  return df
 
-  print(supermarket[supermarket.customer_no == 1])
