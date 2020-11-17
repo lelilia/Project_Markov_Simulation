@@ -1,3 +1,7 @@
 {
+<<<<<<< HEAD
     "python.pythonPath": "/home/christoph/software/anaconda3/bin/python"
+=======
+    "python.pythonPath": "/Users/lelischiestl/anaconda3/bin/python"
+>>>>>>> dc7e7a26bc61c03d1e7dee9d6a9bf1d52f90c467
 }
