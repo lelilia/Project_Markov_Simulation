@@ -1,17 +1,8 @@
 from supermarket import Supermarket
-from utils.functions import *
+from scenarios import *
 
-supermarket = Supermarket()
 
-supermarket.add_new_customers()
-supermarket.add_new_customers()
-supermarket.add_new_customers()
+simulate_only_three_customers()
 
-supermarket.print_customers()
 
-while len(supermarket.customers) > 0:
-  supermarket.next_minute()
-  supermarket.print_customers()
-  supermarket.get_time()
-  supermarket.remove_exitsting_customers()
-
+# simulate_normal_day(0.8)

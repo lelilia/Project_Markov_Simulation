@@ -42,6 +42,7 @@ class Supermarket:
 
     for customer in self.customers:
         print(customer)
+    print()
 
   def next_minute(self):
     '''
