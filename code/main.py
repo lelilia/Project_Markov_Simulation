@@ -14,4 +14,3 @@ while len(supermarket.customers) > 0:
   supermarket.get_time()
   supermarket.remove_exitsting_customers()
 
-
