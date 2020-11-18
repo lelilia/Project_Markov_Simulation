@@ -7,6 +7,7 @@ supermarket.add_new_customers()
 supermarket.add_new_customers()
 supermarket.add_new_customers()
 
+supermarket.print_customers()
 
 while len(supermarket.customers) > 0:
   supermarket.next_minute()
