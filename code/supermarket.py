@@ -11,6 +11,9 @@ class Supermarket:
   manages multiple Customer instances that are currently in the market.
   '''
 
+  # class variables
+  shelves = ['dairy', 'drinks', 'fruit', 'spices']
+
   def __init__(self):
     # a list of Customer objects
     self.customers = []
@@ -54,7 +57,7 @@ class Supermarket:
     '''
     id = self.last_id
     self.last_id += 1
-    location = np.random.choice(['dairy', 'drinks', 'fruit', 'spices'])
+    location = np.random.choice(self.shelves)
     customer = Customer(id, location, self.transition_matrix)
     self.customers.append(customer)
 

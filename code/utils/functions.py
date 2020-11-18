@@ -4,7 +4,9 @@ import numpy as np
 
 def get_the_original_data(list_of_days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']):
   '''
-  read in the original data for all weekdays and return a dataframe with all the days and added a value to the customer_no to distinguish between days
+  read in the original data for all weekdays and return a dataframe
+  with all the days and added a value to the customer_no
+  to distinguish between days
   Parameters
   ----------
   list_of_days: list of strings
