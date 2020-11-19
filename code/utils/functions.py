@@ -62,7 +62,6 @@ def get_transition_matrix(df):
   '''
 
   transition_matrix_path = Path('../data/transition_matrix.csv')
-  print(transition_matrix_path)
 
   if transition_matrix_path.is_file():
     transition_matrix = pd.read_csv('../data/transition_matrix.csv', index_col = 'location')

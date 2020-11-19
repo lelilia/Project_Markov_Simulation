@@ -5,10 +5,14 @@ import numpy as np
 
 #
 class CoronaSupermarket(Supermarket):
+    '''
+    inherits from parent class Supermarket and simulates a supermarket during Corona restrictions.
+    '''
 
     def __init__(self, customer_limit = 5):
         '''
         constructor inheriting from class Supermarket
+        and defines how much customers are allowed to enter the market at the same time 
         '''
         super().__init__()
         self.customer_limit = customer_limit
@@ -16,7 +20,7 @@ class CoronaSupermarket(Supermarket):
 
     def corona_stop(self):
         '''
-        customer needs to wait in queue if already 5 customers are in the market.
+        customer needs to wait in queue if limit of customers in the supermarket has already been reached.
         '''
         if len(self.customers) > self.customer_limit:
             self.corona_queue = self.customers[self.customer_limit:]
@@ -24,7 +28,7 @@ class CoronaSupermarket(Supermarket):
 
     def corona_go(self):
         '''
-        next customer is allowed to enter the market if less than 5 customers are already in the market.
+        next customer is allowed to enter the market if customer number in the supermarket is <= defined limit.
         '''
         if not self.customers:
             pass
