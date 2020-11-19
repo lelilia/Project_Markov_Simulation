@@ -38,34 +38,41 @@ class SupermarketMap:
         )
         self.prepare_map()
 
+    def get_tile_parameters(self, y, x):
+        '''
+        returns the pixels for a tile
+        in order to make it easier it first takes the y and than the x so one can count the tiles in the more comfortable way x,y
+        '''
+        return self.tiles[x * TILE_SIZE : (x + 1) * TILE_SIZE, y * TILE_SIZE : (y + 1) * TILE_SIZE]
+
     def get_tile(self, char):
+
         """returns the array for a given tile character"""
         # empty shelf
         if char == '#':
-            return self.tiles[0 : TILE_SIZE, 0 : TILE_SIZE]
+            return self.get_tile_parameters(0, 0)
         # gate
         elif char == 'G':
-            return self.tiles[7 * TILE_SIZE : 8 * TILE_SIZE, 3 * TILE_SIZE : 4 * TILE_SIZE]
+            return self.get_tile_parameters(3, 7)
         # cash register
         elif char == 'C':
-            return self.tiles[1 * TILE_SIZE : 2 * TILE_SIZE, 8 * TILE_SIZE : 9 * TILE_SIZE]
+            return self.get_tile_parameters(8, 1)
         # eggplant
         elif char == 'O':
-            return self.tiles[1 * TILE_SIZE: 2 * TILE_SIZE, 11 * TILE_SIZE : 12 * TILE_SIZE]
+            return self.get_tile_parameters(11, 1)
         # pink umbrella
         elif char == 'u':
-            return self.tiles[2 * TILE_SIZE: 3 * TILE_SIZE, 9 * TILE_SIZE : 10 * TILE_SIZE]
+            return self.get_tile_parameters(9, 2)
         # candy 1
         elif char == 'b':
-            return self.tiles[0 * TILE_SIZE: 1 * TILE_SIZE, 3 * TILE_SIZE : 4 * TILE_SIZE]
+            return self.get_tile_parameters(3,0)
         # candy 2
         elif char == 'c':
-            return self.tiles[1 * TILE_SIZE: 2 * TILE_SIZE, 3 * TILE_SIZE : 4 * TILE_SIZE]
-        # customer ghost
-        elif char == 'g':
-            return self.tiles[7 * TILE_SIZE : 8 * TILE_SIZE, : TILE_SIZE]
+            return self.get_tile_parameters(3,1)
+
         else:
-            return self.tiles[TILE_SIZE : 2 * TILE_SIZE, 2 * TILE_SIZE : 3 * TILE_SIZE]
+            return self.get_tile_parameters(2,1)
+
 
     def prepare_map(self):
         """prepares the entire image as a big numpy array"""
@@ -102,25 +109,25 @@ class Customer:
         return(f'<Customer at {self.x}, {self.y}>')
 
     def draw(self, frame):
-        xpos = OFS + self.x * TILE_SIZE
-        ypos = OFS + self.y * TILE_SIZE
-        frame[ypos : ypos + TILE_SIZE, xpos : xpos + TILE_SIZE] = self.image
+        x_pos = OFS + self.x * TILE_SIZE
+        y_pos = OFS + self.y * TILE_SIZE
+        frame[y_pos : y_pos + TILE_SIZE, x_pos : x_pos + TILE_SIZE] = self.image
 
     def move(self, direction):
-        newx = self.x
-        newy = self.y
+        new_x = self.x
+        new_y = self.y
         if direction == 'up':
-            newy -= 1
+            new_y -= 1
         elif direction == 'down':
-            newy += 1
+            new_y += 1
         elif direction == 'left':
-            newx -= 1
+            new_x -= 1
         elif direction == 'right':
-            newx += 1
+            new_x += 1
 
-        if self.terrain_map.contents[newy][newx] == '.':
-            self.x = newx
-            self.y = newy
+        if self.terrain_map.contents[new_y][new_x] == '.':
+            self.x = new_x
+            self.y = new_y
 
 if __name__ == "__main__":
 
@@ -130,7 +137,7 @@ if __name__ == "__main__":
     market = SupermarketMap(MARKET, tiles)
 
     # instantiate a customer
-    customer = Customer(market, market.get_tile('g'), 2, 2)
+    customer = Customer(market, tiles[7 * TILE_SIZE : 8 * TILE_SIZE, : TILE_SIZE], 2, 2)
 
     while True:
         frame = background.copy()
