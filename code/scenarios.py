@@ -1,5 +1,7 @@
 from random import random
 from supermarket import Supermarket
+from tiles import SupermarketMap
+from ma
 
 def go_to_next_minute(supermarket, adding_prob = 0):
   '''
@@ -41,3 +43,11 @@ def simulate_n_customers(n):
   supermarket.save_dataframe()
 
 
+def draw_simulate_n_customers(n):
+  '''
+  Simulate n customers that start together in the store.
+  Draw their progression through the market.
+  No new customers are added and the simulation stops once they all reached the checkout.
+  '''
+  market = SupermarketMap(MARKET, TILES)
+  supermarket = Supermarket(market)

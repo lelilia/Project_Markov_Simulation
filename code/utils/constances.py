@@ -3,12 +3,12 @@ import cv2
 ALL_STATES = ['checkout', 'dairy', 'drinks', 'fruit', 'spices']
 
 STATE_LOCATION = {
-  'dairy': [3, 4],
-  'drinks': [7,4],
-  'fruit': [11, 4],
-  'spices': [15, 4],
-  'checkout': [3, 8],
-  'entrance': [14, 11]
+  'dairy':    [4,  3],
+  'drinks':   [4,  7],
+  'fruit':    [4, 11],
+  'spices':   [4, 15],
+  'checkout': [8,  3],
+  'entrance': [11, 14]
 }
 
 TILE_SIZE = 32

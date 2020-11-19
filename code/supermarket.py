@@ -14,14 +14,15 @@ class Supermarket:
   # class variables
   shelves = ['dairy', 'drinks', 'fruit', 'spices']
 
-  def __init__(self):
+  def __init__(self, market):
     # a list of Customer objects
     self.customers = []
     self.minutes = 0
     self.last_id = 0
     self.transition_matrix = get_transition_matrix(get_supermarket_data())
     self.first_aisle = get_first_aisle_probability()
-    self.dataframe = pd.DataFrame(columns=['timestamp', 'customer_no', 'location'])
+    # self.dataframe = pd.DataFrame(columns=['timestamp', 'customer_no', 'location'])
+    self.terrain_map = market
 
   def __repr__(self):
     pass
@@ -44,14 +45,22 @@ class Supermarket:
 
     for customer in self.customers:
         print(customer)
-        self.dataframe.append([current_time, customer.id, customer.state])
+        # self.dataframe.append([current_time, customer.id, customer.state])
     print()
+
+  def draw_customers(self, frame):
+    '''
+    draw all the customers
+    '''
+    for customer in self.customers:
+      customer.draw(frame)
 
   def save_dataframe(self, filename = '../data/simulation.csv'):
     '''
     Save the file to data
     '''
-    self.dataframe.to_csv(filename)
+    # self.dataframe.to_csv(filename)
+    pass
 
   def next_minute(self):
     '''
@@ -68,7 +77,7 @@ class Supermarket:
     id = self.last_id
     self.last_id += 1
     location = np.random.choice(self.shelves, p = self.first_aisle)
-    customer = Customer(id, location, self.transition_matrix)
+    customer = Customer(id, location, self.transition_matrix, self.terrain_map)
     self.customers.append(customer)
 
   def remove_exitsting_customers(self):
