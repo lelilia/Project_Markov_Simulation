@@ -21,6 +21,7 @@ class Supermarket:
     self.last_id = 0
     self.transition_matrix = get_transition_matrix(get_supermarket_data())
     self.first_aisle = get_first_aisle_probability()
+    self.dataframe = pd.DataFrame(columns=['timestamp', 'customer_no', 'location'])
 
   def __repr__(self):
     pass
@@ -31,18 +32,26 @@ class Supermarket:
     '''
     hour = self.minutes // 60 + 7
     minutes = self.minutes % 60
-    print(f'{str(hour).zfill(2)}:{str(minutes).zfill(2)}')
+    return f'{str(hour).zfill(2)}:{str(minutes).zfill(2)}'
 
 
   def print_customers(self):
     '''
     print all customers with the current time and id in CSV format.
     '''
-    print(f'There are {len(self.customers)} customer(s) in the supermarket at the moment.\n')
+    current_time = self.get_time()
+    print(f'{current_time}: There are {len(self.customers)} customer(s) in the supermarket at the moment.\n')
 
     for customer in self.customers:
         print(customer)
+        self.dataframe.append([current_time, customer.id, customer.state])
     print()
+
+  def save_dataframe(self, filename = '../data/simulation.csv'):
+    '''
+    Save the file to data
+    '''
+    self.dataframe.to_csv(filename)
 
   def next_minute(self):
     '''

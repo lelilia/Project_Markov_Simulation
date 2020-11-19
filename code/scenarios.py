@@ -1,13 +1,12 @@
 from random import random
 from supermarket import Supermarket
 
-def go_to_next_minute(supermarket, adding_prob = 1):
+def go_to_next_minute(supermarket, adding_prob = 0):
   '''
   simulate next minute
   '''
-  if random() > adding_prob:
+  if random() < adding_prob:
     supermarket.add_new_customers()
-  supermarket.get_time()
   supermarket.remove_exitsting_customers()
   supermarket.print_customers()
   supermarket.next_minute()
@@ -38,5 +37,7 @@ def simulate_n_customers(n):
 
   while len(supermarket.customers) > 0:
     go_to_next_minute(supermarket)
+
+  supermarket.save_dataframe()
 
 
