@@ -17,7 +17,7 @@ class Customer:
 
     # visualization
     self.terrain_map =  terrain_map
-    self.image =        TILES[7 * TILE_SIZE : 8 * TILE_SIZE, : TILE_SIZE]
+    self.image =        TILES[8 * TILE_SIZE : 9 * TILE_SIZE, 3 * TILE_SIZE: 4 *TILE_SIZE]
     self.x =            STATE_LOCATION[self.state][1]
     self.y =            STATE_LOCATION[self.state][0]
 
@@ -45,21 +45,21 @@ class Customer:
     self.x = STATE_LOCATION[self.state][1]
     self.y = STATE_LOCATION[self.state][0]
 
-  def move(self, direction):
-    new_x = self.x
-    new_y = self.y
-    if direction == 'up':
-        new_y -= 1
-    elif direction == 'down':
-        new_y += 1
-    elif direction == 'left':
-        new_x -= 1
-    elif direction == 'right':
-        new_x += 1
+  # def move(self, direction):
+  #   new_x = self.x
+  #   new_y = self.y
+  #   if direction == 'up':
+  #       new_y -= 1
+  #   elif direction == 'down':
+  #       new_y += 1
+  #   elif direction == 'left':
+  #       new_x -= 1
+  #   elif direction == 'right':
+  #       new_x += 1
 
-    if self.terrain_map.contents[new_y][new_x] == '.':
-        self.x = new_x
-        self.y = new_y
+  #   if self.terrain_map.contents[new_y][new_x] == '.':
+  #       self.x = new_x
+  #       self.y = new_y
 
   def draw(self, frame):
     x_pos = OFS + self.x * TILE_SIZE

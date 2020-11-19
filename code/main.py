@@ -10,16 +10,18 @@ from customer import Customer
 from utils.constances import MARKET, TILES, OFS
 from utils.functions import get_transition_matrix, get_supermarket_data
 
-def go_to_next_minute(supermarket, frame, adding_prob = 0):
+def go_to_next_minute(market, supermarket, frame, adding_prob = 0):
   '''
   simulate next minute
   '''
+  market.draw(frame)
   if random() < adding_prob:
     supermarket.add_new_customers()
   supermarket.remove_exitsting_customers()
   supermarket.print_customers()
   supermarket.draw_customers(frame)
   supermarket.next_minute()
+  time.sleep(1)
   return supermarket
 
 def simulate_n_customers(n):
@@ -33,12 +35,11 @@ def simulate_n_customers(n):
   supermarket = Supermarket(market)
   for _ in range(n):
     supermarket.add_new_customers()
+  frame = background.copy()
 
   while len(supermarket.customers) > 0:
-    time.sleep(1)
-    frame = background.copy()
-    market.draw(frame)
-    go_to_next_minute(supermarket, frame)
+
+    go_to_next_minute(market, supermarket, frame)
     cv2.imshow("frame", frame)
 
     key = chr(cv2.waitKey(1) & 0xFF)
@@ -49,38 +50,4 @@ def simulate_n_customers(n):
 
 if __name__ == "__main__":
   simulate_n_customers(5)
-    # background = np.zeros((700, 1000, 3), np.uint8)
-
-    # market = SupermarketMap(MARKET, TILES)
-
-    # # instantiate a customer
-    # supermarket = Supermarket(market)
-    # supermarket.add_new_customers()
-    # supermarket.add_new_customers()
-
-    # while True:
-    #     time.sleep(1)
-    #     frame = background.copy()
-    #     market.draw(frame)
-    #     for customer in supermarket.customers:
-    #       customer.draw(frame)
-    #     supermarket.next_minute()
-    #     supermarket.print_customers()
-    #     cv2.imshow("frame", frame)
-
-    #     key = chr(cv2.waitKey(1) & 0xFF)
-    #     # if key == 'w':
-    #     #     customer.move('up')
-    #     # elif key == 'a':
-    #     #     customer.move('left')
-    #     # elif key == 'd':
-    #     #     customer.move('right')
-    #     # elif key == 's':
-    #     #     customer.move('down')
-
-    #     if key == "q":
-    #         break
-
-    # cv2.destroyAllWindows()
-
-    # market.write_image("./graphics/supermarket.png")
+    
