@@ -36,7 +36,7 @@ def get_path_from_finish(current):
 
 
 def create_neighbours(poss_moves, current_node, finish_node, grid_array, frontier):
-    """Creates neighbour-nodes for current node and adds them to the frontier-list"""
+    """Creates neighbor-nodes for current node and adds them to the frontier-list"""
 
     for move in poss_moves:
         node_position = (current_node.location[0] + move[0],

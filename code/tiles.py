@@ -2,24 +2,7 @@ import numpy as np
 import cv2
 import time
 
-TILE_SIZE = 32
-OFS = 50
-
-MARKET = """
-##################
-##..............##
-##..b#..##..#O..##
-##..c#..##..#O..##
-##..##..##..#O..##
-##..##..##..#u..##
-##..##..##..#u..##
-##...............#
-##..C#..C#..C#...#
-##..##..##..##...#
-##...............#
-##############GG##
-""".strip()
-
+from utils.constances import TILE_SIZE, OFS, MARKET
 
 class SupermarketMap:
     """Visualizes the supermarket background"""
@@ -60,18 +43,30 @@ class SupermarketMap:
         # eggplant
         elif char == 'O':
             return self.get_tile_parameters(11, 1)
+        # grapes
+        elif char == 't':
+            return self.get_tile_parameters(4, 4)
+        # strawberry
+        elif char == 's':
+            return self.get_tile_parameters(5,1)
+        # tomato
+        elif char == 'T':
+            return self.get_tile_parameters(5, 3)
         # pink umbrella
         elif char == 'u':
             return self.get_tile_parameters(9, 2)
+        # vase
+        elif char == 'v':
+            return self.get_tile_parameters(10,0)
         # candy 1
         elif char == 'b':
-            return self.get_tile_parameters(3,0)
+            return self.get_tile_parameters(3, 0)
         # candy 2
         elif char == 'c':
-            return self.get_tile_parameters(3,1)
+            return self.get_tile_parameters(3, 1)
 
         else:
-            return self.get_tile_parameters(2,1)
+            return self.get_tile_parameters(2, 1)
 
 
     def prepare_map(self):
