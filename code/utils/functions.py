@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+from pathlib import Path
 
 
 def get_the_original_data(list_of_days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']):
@@ -59,13 +60,22 @@ def get_transition_matrix(df):
   ------
   transition_matrix: Pandas DataFrame
   '''
-  # add new column for the next aisle
-  df = get_column_next_aisle(df)
 
-  # calculate transition_matrix via crosstab, normalized on the rows
-  transition_matrix = pd.crosstab(df['location'], df['next_aisle'], normalize=0)
+  transition_matrix_path = Path('../data/transition_matrix.csv')
+  print(transition_matrix_path)
 
-  return transition_matrix
+  if transition_matrix_path.is_file():
+    transition_matrix = pd.read_csv('../data/transition_matrix.csv', index_col = 'location')
+    return transition_matrix
+  else:
+    # add new column for the next aisle
+    df = get_column_next_aisle(df)
+
+    # calculate transition_matrix via crosstab, normalized on the rows
+    transition_matrix = pd.crosstab(df['location'], df['next_aisle'], normalize=0)
+
+    transition_matrix.to_csv('../data/transition_matrix.csv')
+    return transition_matrix
 
 def save_compounded_dataframe():
   '''

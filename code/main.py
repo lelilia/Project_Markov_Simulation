@@ -1,10 +1,9 @@
 from supermarket import Supermarket
-<<<<<<< HEAD
 from corona_supermarket import CoronaSupermarket
 from utils.functions import *
 
 #supermarket = Supermarket()
-corona_supermarket = CoronaSupermarket(customer_limit=8)
+corona_supermarket = CoronaSupermarket(customer_limit=5)
 
 """
 corona_supermarket.add_new_customers()
@@ -42,12 +41,3 @@ while len(corona_supermarket.customers) > 0:
   corona_supermarket.corona_go()
 
 
-=======
-from scenarios import *
-
-
-simulate_only_three_customers()
-
-
-# simulate_normal_day(0.8)
->>>>>>> d43f6dc694d31f81b3b3258f40d33fa1093f66ea

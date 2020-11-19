@@ -20,10 +20,7 @@ class Supermarket:
     self.minutes = 0
     self.last_id = 0
     self.transition_matrix = get_transition_matrix(get_supermarket_data())
-<<<<<<< HEAD
-=======
     self.first_aisle = get_first_aisle_probability()
->>>>>>> d43f6dc694d31f81b3b3258f40d33fa1093f66ea
 
   def __repr__(self):
     pass

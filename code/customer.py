@@ -15,6 +15,7 @@ class Customer:
     self.state = state
     self.transition_mat = transition_mat
     self.history = []
+   
 
   def __repr__(self):
     '''define the print return'''
