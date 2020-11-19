@@ -36,4 +36,3 @@ class Customer:
     self.history.append(self.state)
     self.state = np.random.choice(self.all_states, p = self.transition_mat.loc[self.state])
 
-    #TODO -> add real MCMC here

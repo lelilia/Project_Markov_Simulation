@@ -4,7 +4,7 @@ import pandas as pd
 
 # local import
 from customer import Customer
-from utils.functions import get_transition_matrix, get_supermarket_data
+from utils.functions import get_transition_matrix, get_supermarket_data, get_first_aisle_probability
 
 class Supermarket:
   '''
@@ -20,6 +20,10 @@ class Supermarket:
     self.minutes = 0
     self.last_id = 0
     self.transition_matrix = get_transition_matrix(get_supermarket_data())
+<<<<<<< HEAD
+=======
+    self.first_aisle = get_first_aisle_probability()
+>>>>>>> d43f6dc694d31f81b3b3258f40d33fa1093f66ea
 
   def __repr__(self):
     pass
@@ -41,6 +45,7 @@ class Supermarket:
 
     for customer in self.customers:
         print(customer)
+    print()
 
   def next_minute(self):
     '''
@@ -56,7 +61,7 @@ class Supermarket:
     '''
     id = self.last_id
     self.last_id += 1
-    location = np.random.choice(self.shelves)
+    location = np.random.choice(self.shelves, p = self.first_aisle)
     customer = Customer(id, location, self.transition_matrix)
     self.customers.append(customer)
     return self.customers
