@@ -4,6 +4,11 @@ class Customer:
   '''
   a single customer that moves through the supermarket in a MCMC simulation
   '''
+
+  # class variables
+  all_states = ['checkout', 'dairy', 'drinks', 'fruit', 'spices']
+
+  
   def __init__(self, id, state, transition_mat):
     '''initiate'''
     self.id = id
@@ -29,6 +34,5 @@ class Customer:
     Returns nothing.
     '''
     self.history.append(self.state)
-    self.state = np.random.choice(['checkout', 'dairy', 'drinks', 'fruit', 'spices'], p = self.transition_mat.loc[self.state])
+    self.state = np.random.choice(self.all_states, p = self.transition_mat.loc[self.state])
 
-    #TODO -> add real MCMC here

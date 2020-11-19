@@ -4,7 +4,9 @@ import numpy as np
 
 def get_the_original_data(list_of_days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']):
   '''
-  read in the original data for all weekdays and return a dataframe with all the days and added a value to the customer_no to distinguish between days
+  read in the original data for all weekdays and return a dataframe
+  with all the days and added a value to the customer_no
+  to distinguish between days
   Parameters
   ----------
   list_of_days: list of strings
@@ -90,3 +92,12 @@ def backfill_data(df):
   df = df.sort_index()
   return df
 
+def get_first_aisle_probability():
+  '''
+  get the probability for the first aisle based on the data
+  '''
+  df = get_the_original_data()
+  df['first'] = ~df.duplicated('customer_no')
+  df = df[df['first']].groupby('location')[['customer_no']].count()
+  df = df / df.sum()
+  return df['customer_no']
