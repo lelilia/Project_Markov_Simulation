@@ -1,4 +1,3 @@
-
 import numpy as np
 import cv2
 
@@ -9,8 +8,8 @@ OFS = 50
 MARKET = """
 ##################
 ##..............##
-##..##..##..#O..##
-##..##..##..#O..##
+##..b#..##..#O..##
+##..c#..##..#O..##
 ##..##..##..#O..##
 ##..##..##..#u..##
 ##..##..##..#u..##
@@ -41,7 +40,7 @@ class SupermarketMap:
         """returns the array for a given tile character"""
         # empty shelf
         if char == '#':
-            return self.tiles[0 : TILE_SIZE, 2*TILE_SIZE : 3 * TILE_SIZE]
+            return self.tiles[0 : TILE_SIZE, 0 : TILE_SIZE]
         # gate
         elif char == 'G':
             return self.tiles[7 * TILE_SIZE : 8 * TILE_SIZE, 3 * TILE_SIZE : 4 * TILE_SIZE]
@@ -54,6 +53,13 @@ class SupermarketMap:
         # pink umbrella
         elif char == 'u':
             return self.tiles[2 * TILE_SIZE: 3 * TILE_SIZE, 9 * TILE_SIZE : 10 * TILE_SIZE]
+        # candy 1
+        elif char == 'b':
+            return self.tiles[0 * TILE_SIZE: 1 * TILE_SIZE, 3 * TILE_SIZE : 4 * TILE_SIZE]
+        # candy 2
+        elif char == 'c':
+            return self.tiles[1 * TILE_SIZE: 2 * TILE_SIZE, 3 * TILE_SIZE : 4 * TILE_SIZE]
+
         else:
             return self.tiles[TILE_SIZE : 2 * TILE_SIZE, 2 * TILE_SIZE : 3 * TILE_SIZE]
 
@@ -78,7 +84,7 @@ class SupermarketMap:
 
 
 background = np.zeros((700, 1000, 3), np.uint8)
-tiles = cv2.imread('./graphics/tiles.png')
+tiles = cv2.imread('code/visualization/graphics/tiles.png')
 
 market = SupermarketMap(MARKET, tiles)
 
@@ -94,4 +100,4 @@ while True:
 
 cv2.destroyAllWindows()
 
-market.write_image("./graphics/supermarket.png")
+market.write_image("code/visualization/graphics/supermarket.png")
