@@ -21,7 +21,6 @@ class Supermarket:
     self.last_id = 0
     self.transition_matrix = get_transition_matrix(get_supermarket_data())
 
-
   def __repr__(self):
     pass
 
@@ -60,8 +59,9 @@ class Supermarket:
     location = np.random.choice(self.shelves)
     customer = Customer(id, location, self.transition_matrix)
     self.customers.append(customer)
+    return self.customers
 
-  def remove_exitsting_customers(self):
+  def remove_existing_customers(self):
     '''
     removes every customer that is not active any more.
     '''
