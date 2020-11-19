@@ -4,7 +4,6 @@ A* algorithm
 import operator
 import numpy as np
 
-from utils.constances import MARKET
 
 def heuristic(current,target):
     """calculating the estimated distance between the current node and the targeted node
@@ -90,28 +89,8 @@ if __name__ == '__main__':
         [0, 0, 0, 1, 0, 0],
         [0, 0, 0, 0, 0, 0]
     ])
-    grid = np.zeros((5, 6))
-    grid[1:3, 1:4] = 1
-    print(grid)
-    grid = [[0,0,0,0,0,0],
-            [0,0,1,1,1,0],
-            [0,0,1,1,0,0],
-            [0,0,0,1,0,0],
-            [0,0,0,0,0,0]]
-    grid = np.array(grid)
 
-    array1 = []
-    market = MARKET.split('\n')
-    for row in market:
-        array2 = []
-        for char in row:
-            if char == '.':
-                array2.append(0)
-            else:
-                array2.append(1)
-        array1.append(array2)
-    print(array1)
-    grid = np.array(array1)
+
 
     # y,x positions
     # start_given = (1,0)

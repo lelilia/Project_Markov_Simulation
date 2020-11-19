@@ -5,6 +5,7 @@ import pandas as pd
 # local import
 from customer import Customer
 from utils.functions import get_transition_matrix, get_supermarket_data, get_first_aisle_probability
+from utils.constances import TRANSITION_MATRIX
 
 class Supermarket:
   '''
@@ -14,7 +15,7 @@ class Supermarket:
   # class variables
   shelves = ['dairy', 'drinks', 'fruit', 'spices']
 
-  def __init__(self, market):
+  def __init__(self, market = 0):
     # a list of Customer objects
     self.customers = []
     self.minutes = 0
@@ -23,6 +24,7 @@ class Supermarket:
     self.first_aisle = get_first_aisle_probability()
     # self.dataframe = pd.DataFrame(columns=['timestamp', 'customer_no', 'location'])
     self.terrain_map = market
+    self.customers_to_move = False
 
   def __repr__(self):
     pass
@@ -69,6 +71,11 @@ class Supermarket:
     self.minutes += 1
     for customer in self.customers:
       customer.next_state()
+    self.customers_to_move = True
+
+  def move_customers(self):
+    for customer in self.customers:
+      customer.move()
 
   def add_new_customers(self):
     '''
@@ -76,15 +83,19 @@ class Supermarket:
     '''
     id = self.last_id
     self.last_id += 1
+    ghost = np.random.choice([1, 2, 3, 4, 5, 6, 7])
     location = np.random.choice(self.shelves, p = self.first_aisle)
-    customer = Customer(id, location, self.transition_matrix, self.terrain_map)
+    customer = Customer(id, location, self.transition_matrix, self.terrain_map, ghost)
     self.customers.append(customer)
 
   def remove_exitsting_customers(self):
     '''
     removes every customer that is not active any more.
     '''
+    self.customers_to_move = False
     for customer in self.customers:
       if not customer.is_active():
         self.customers.remove(customer)
-
+      if customer.is_moving():
+        self.customers_to_move = True
+    print(self.customers_to_move)

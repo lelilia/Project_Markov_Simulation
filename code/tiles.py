@@ -64,6 +64,9 @@ class SupermarketMap:
         # candy 2
         elif char == 'c':
             return self.get_tile_parameters(3, 1)
+        # cashier
+        elif char == 'g':
+            return self.get_tile_parameters(3, 8)
 
         else:
             return self.get_tile_parameters(2, 1)
