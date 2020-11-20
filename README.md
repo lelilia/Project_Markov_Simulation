@@ -8,6 +8,8 @@ $ python main.py
 ```
 
 ## Screenshots
+Supermarket without Corona
 ![](./images/without_corona.gif)
 
+Supermarket with Corona
 ![](./images/corona.gif)
