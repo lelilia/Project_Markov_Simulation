@@ -93,7 +93,7 @@ def simulate_n_customers_without_simulation(n):
 if __name__ == "__main__":
   # print(TRANSITION_MATRIX)
 
-  simulate_n_customers(5)
+  simulate_n_customers(15)
   # start = STATE_LOCATION['checkout']
   # print(find_path(GRID, start, (4,3), POSSIBLE_MOVES))
   # start = tuple(STATE_LOCATION['drinks'][::-1])

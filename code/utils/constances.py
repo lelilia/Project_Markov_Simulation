@@ -6,13 +6,13 @@ import pandas as pd
 ALL_STATES = ['checkout', 'dairy', 'drinks', 'fruit', 'spices']#, 'entry', 'exit']
 
 STATE_LOCATION = {
-  'dairy':    [3,  4],
-  'drinks':   [7,  4],
-  'fruit':    [11, 4],
-  'spices':   [15, 4],
-  'checkout': [3,  8],
-  'entry': [14, 11],
-  'exit': [15,11]
+  'dairy':    [ 3,  4],
+  'drinks':   [ 7,  4],
+  'fruit':    [11,  4],
+  'spices':   [15,  4],
+  'checkout': [ 3,  8],
+  'entry':    [14, 11],
+  'exit':     [15, 11]
 }
 
 TILE_SIZE = 32
@@ -21,11 +21,26 @@ OFS = 50
 MARKET = """
 ##################
 ##..............##
-#c..bs..tO..Tv..u#
-#b..ct..sT..Ou..v#
-#c..bs..tO..Tv..u#
-#b..ct..sT..Ou..v#
-#c..bs..tO..Tv..u#
+#c..bs..tO..Tv..k#
+#b..ct..sT..Ou..k#
+#c..bs..tO..Tv..k#
+#b..ct..sT..Ou..k#
+#c..bs..tO..Tv..k#
+##...............#
+##..C#..C#..C#...#
+##..#g..##..##...#
+##...............#
+##############GG##
+""".strip()
+
+CORONA_MARKET = """
+##################
+##..............##
+#c..bs..tO..Tv..e#
+#b..ct..sT..Ou..e#
+#c..bs..tO..Tv..k#
+#b..ct..sT..Ou..e#
+#c..bs..tO..Tv..e#
 ##...............#
 ##..C#..C#..C#...#
 ##..#g..##..##...#

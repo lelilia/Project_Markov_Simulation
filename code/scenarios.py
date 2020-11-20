@@ -1,7 +1,7 @@
 from random import random
 from supermarket import Supermarket
 from tiles import SupermarketMap
-from ma
+from utils.constances import MARKET, TILES
 
 def go_to_next_minute(supermarket, adding_prob = 0):
   '''
@@ -40,7 +40,7 @@ def simulate_n_customers(n):
   while len(supermarket.customers) > 0:
     go_to_next_minute(supermarket)
 
-  supermarket.save_dataframe()
+  # supermarket.save_dataframe()
 
 
 def draw_simulate_n_customers(n):
