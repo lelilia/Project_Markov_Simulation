@@ -1,25 +1,24 @@
-import numpy as np
-import cv2
+''' run the program from here'''
+
 import time
 from random import random
 
-# local import
+import numpy as np
+import cv2
+
 from tiles import SupermarketMap
 from supermarket import Supermarket
 from corona_supermarket import CoronaSupermarket
-from utils.functions import get_transition_matrix, get_supermarket_data, get_first_aisle_probability
-from customer import Customer
-from utils.constances import MARKET, TILES, OFS, GRID, POSSIBLE_MOVES, STATE_LOCATION, TRANSITION_MATRIX
-from utils.a_star import find_path
+from utils.constances import MARKET, TILES, CORONA_MARKET
 
 
-def simulate_corona_supermarket(customer_limit=5):
+def simulate_corona_supermarket_without_graphics(customer_limit=5, number_of_customers = 15):
     '''
     run a simulation with the corona supermarket class
     '''
     corona_supermarket = CoronaSupermarket(customer_limit)
     corona_supermarket.remove_exitsting_customers()
-    for _ in range(15):
+    for _ in range(number_of_customers):
         corona_supermarket.add_new_customers()
 
     while len(corona_supermarket.customers) > 0:
@@ -30,6 +29,33 @@ def simulate_corona_supermarket(customer_limit=5):
         corona_supermarket.remove_exitsting_customers()
         corona_supermarket.corona_go()
 
+
+def simulate_corona_supermarket(customer_limit=5):
+    '''
+    run a simulation of the corona supermarket with visualization
+    '''
+    background = np.zeros((700, 1000, 3), np.uint8)
+    market = SupermarketMap(CORONA_MARKET, TILES)
+    supermarket = CoronaSupermarket(customer_limit)
+
+    for _ in range(15):
+        supermarket.add_new_customers()
+
+    frame = background.copy()
+    while len(supermarket.customers) > 0:
+        supermarket.corona_stop()
+        if supermarket.customers_to_move:
+            move_between_minutes(market, supermarket, frame)
+        else:
+            go_to_next_minute(market, supermarket, frame)
+        supermarket.remove_exitsting_customers()
+        supermarket.corona_go()
+        cv2.imshow("frame", frame)
+
+        key = chr(cv2.waitKey(1) & 0xFF)
+        if key == 'q':
+            break
+    cv2.destroyAllWindows()
 
 def go_to_next_minute(market, supermarket, frame, adding_prob=0):
     '''
@@ -43,11 +69,12 @@ def go_to_next_minute(market, supermarket, frame, adding_prob=0):
 
     supermarket.draw_customers(frame)
     supermarket.next_minute()
-    time.sleep(1)
+    time.sleep(0.1)
     return supermarket
 
 
 def move_between_minutes(market, supermarket, frame):
+    ''' move the customers between the minutes'''
     market.draw(frame)
     supermarket.remove_exitsting_customers()
     supermarket.move_customers()
@@ -64,7 +91,7 @@ def simulate_n_customers(n):
     '''
     background = np.zeros((700, 1000, 3), np.uint8)
     market = SupermarketMap(MARKET, TILES)
-    supermarket = Supermarket(market)
+    supermarket = Supermarket(market=market)
     for _ in range(n):
         supermarket.add_new_customers()
     frame = background.copy()
@@ -116,9 +143,27 @@ def simulate_n_customers_without_simulation(n):
     # supermarket.save_dataframe()
 
 
+def run_simulation(number_of_customers = 15, adding_prob = 0, corona = False, maximum_in_the_market = 5):
+    '''
+    start the simulations depending on the input
+    '''
+    if corona:
+        simulate_corona_supermarket(maximum_in_the_market)
+    else:
+        simulate_n_customers(number_of_customers)
+
+
+
+
+
+
+
+
+
 if __name__ == "__main__":
 
 
-    # simulate_n_customers(15)
-
-    simulate_corona_supermarket()
+    run_simulation(
+        number_of_customers=15,
+        corona= True
+        )

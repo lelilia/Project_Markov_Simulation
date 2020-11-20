@@ -1,6 +1,7 @@
 ''' customer class for the supermarket simulation'''
 
 import numpy as np
+from random import sample
 
 # local imports
 from utils.constances import ALL_STATES, TILES, TILE_SIZE, STATE_LOCATION, OFS, GRID, POSSIBLE_MOVES
@@ -19,13 +20,16 @@ class Customer:
         self.state = state
         self.transition_mat = transition_mat
         self.history = []
-
+        print(ghost)
         # visualization
         self.terrain_map = terrain_map
         self.image = TILES[8 * TILE_SIZE: 9 * TILE_SIZE,
                            ghost * TILE_SIZE: (ghost + 1) * TILE_SIZE]
-        self.x = STATE_LOCATION[self.state][0]
-        self.y = STATE_LOCATION[self.state][1]
+        location = sample(STATE_LOCATION[self.state],1)[0]
+        self.x = location[0]
+        self.y = location[1]
+        #self.x = STATE_LOCATION[self.state][0]
+        #self.y = STATE_LOCATION[self.state][1]
         self.path = []
 
     def __repr__(self):
@@ -57,33 +61,28 @@ class Customer:
         transition probabilities conditional on the current state.
         Returns nothing.
         '''
-        start_state = tuple(STATE_LOCATION[self.state][::-1])
+        start_location = tuple([self.x, self.y][::-1])
+        #start_state = tuple(STATE_LOCATION[self.state][::-1])
         self.history.append(self.state)
-        self.state = np.random.choice(
-            ALL_STATES, p=self.transition_mat.loc[self.state])
+        next_aisle = np.random.choice(ALL_STATES, p = self.transition_mat.loc[self.state])
+        next_location = tuple(sample(STATE_LOCATION[next_aisle],1)[0][::-1])
+        self.state = next_aisle
+        #finish_state = tuple(STATE_LOCATION[self.state][::-1])
 
-        finish_state = tuple(STATE_LOCATION[self.state][::-1])
-
-        if start_state != finish_state:
+        if start_location != next_location:
 
             self.path = find_path(
-                GRID, start_state, finish_state, POSSIBLE_MOVES)[::-1]
-            
+                GRID, start_location, next_location, POSSIBLE_MOVES)[::-1]
+
 
     def move(self):
         '''
         Move the customer on the path between two aisles
         '''
-
         if len(self.path) > 0:
-            print('in the if')
             new_y, new_x = self.path.pop()
-            print(new_x, new_y)
             self.x = new_x
             self.y = new_y
-        else:
-            self.x = STATE_LOCATION[self.state][0]
-            self.y = STATE_LOCATION[self.state][1]
 
     def draw(self, frame):
         '''

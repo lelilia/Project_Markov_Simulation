@@ -67,9 +67,12 @@ class SupermarketMap:
         # candy 2
         elif char == 'c':
             return self.get_tile_parameters(3, 1)
-        # cashier
+        # cashier with mask
         elif char == 'g':
             return self.get_tile_parameters(3, 8)
+        # cashier without mask
+        elif char == 'U':
+            return self.get_tile_parameters(2, 8)
         # empty shelve
         elif char == 'e':
             return self.get_tile_parameters(9, 8)

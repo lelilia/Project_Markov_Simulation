@@ -18,7 +18,7 @@ class Supermarket:
     # class variables
     shelves = ['dairy', 'drinks', 'fruit', 'spices']
 
-    def __init__(self, market=0):
+    def __init__(self, corona = False, market=0):
         # a list of Customer objects
         self.customers = []
         self.minutes = 0
@@ -28,6 +28,7 @@ class Supermarket:
         # self.dataframe = pd.DataFrame(columns=['timestamp', 'customer_no', 'location'])
         self.terrain_map = market
         self.customers_to_move = False
+        self.corona = corona
 
     def __repr__(self):
         pass
@@ -81,7 +82,11 @@ class Supermarket:
         '''
         customer_id = self.last_id
         self.last_id += 1
-        ghost = np.random.choice([1, 2, 3, 4, 5, 6, 7])
+        print(self.corona)
+        if self.corona:
+          ghost = np.random.choice([2,3,4,5,6,7])
+        else:
+          ghost = np.random.choice([1, 2])
         location = np.random.choice(self.shelves, p=self.first_aisle)
         customer = Customer(
             customer_id, location, self.transition_matrix, self.terrain_map, ghost)

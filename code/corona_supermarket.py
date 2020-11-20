@@ -14,7 +14,7 @@ class CoronaSupermarket(Supermarket):
         constructor inheriting from class Supermarket
         and defines how much customers are allowed to enter the market at the same time 
         '''
-        super().__init__()
+        super().__init__(corona=True)
         self.customer_limit = customer_limit
         self.corona_queue = []
 
