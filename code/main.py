@@ -18,7 +18,7 @@ def simulate_corona_supermarket(customer_limit=5):
     run a simulation with the corona supermarket class
     '''
     corona_supermarket = CoronaSupermarket(customer_limit)
-
+    corona_supermarket.remove_exitsting_customers()
     for _ in range(15):
         corona_supermarket.add_new_customers()
 
@@ -27,7 +27,7 @@ def simulate_corona_supermarket(customer_limit=5):
         corona_supermarket.next_minute()
         corona_supermarket.print_customers()
         corona_supermarket.get_time()
-        corona_supermarket.remove_existing_customers()
+        corona_supermarket.remove_exitsting_customers()
         corona_supermarket.corona_go()
 
 

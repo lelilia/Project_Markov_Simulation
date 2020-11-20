@@ -61,14 +61,14 @@ class Customer:
         self.history.append(self.state)
         self.state = np.random.choice(
             ALL_STATES, p=self.transition_mat.loc[self.state])
-        print(self.state)
+
         finish_state = tuple(STATE_LOCATION[self.state][::-1])
 
         if start_state != finish_state:
-            print('location switch')
+
             self.path = find_path(
                 GRID, start_state, finish_state, POSSIBLE_MOVES)[::-1]
-            print(self.path)
+            
 
     def move(self):
         '''
